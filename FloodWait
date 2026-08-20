@@ -1,0 +1,7 @@
+from pyrogram.errors import FloodWait
+import asyncio
+
+try:
+    await client.send_message(chat_id, "Hello")
+except FloodWait as e:
+    await asyncio.sleep(e.value)
