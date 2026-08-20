@@ -1,7 +1,10 @@
 from pyrogram.errors import FloodWait
 import asyncio
 
-try:
-    await client.send_message(chat_id, "Hello")
-except FloodWait as e:
-    await asyncio.sleep(e.value)
+async for file in db.files.find({}):
+    try:
+        await client.send_document(chat_id, file["file_id"])
+    except FloodWait as e:
+        print(f"FloodWait {e.value}s for {chat_id}")
+        await asyncio.sleep(e.value)
+
